@@ -16,5 +16,6 @@
 void configurePLL(void);
 void configureClock(void);
 void enableClkGPIO(void);
+void enableGPIOA(void);
 
 #endif

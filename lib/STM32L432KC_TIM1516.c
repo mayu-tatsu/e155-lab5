@@ -13,7 +13,7 @@
 #include "STM32L432KC_TIM1516.h"
 
 void initTIM1516(TIM_TypeDef* TIMX) {
-  TIMX->PSC = TIM15_PSC;      // Set prescaler
+  TIMX->PSC = DELAY_PSC;      // Set prescaler
   
   // Disabling slave mode
   TIMX->SMCR &= ~(    1 << 16);
@@ -26,7 +26,7 @@ void initTIM1516(TIM_TypeDef* TIMX) {
 }
 
 void initTIM1516_PWM(TIM_TypeDef* TIMX) {
-  TIMX->PSC = TIM16_PSC;      // Set prescaler
+  TIMX->PSC = FREQ_PSC;      // Set prescaler
 
   TIMX->CCR1 = 0x7FFF;            // Using CH1, set 50% duty cycle
   TIMX->CCMR1 &= ~(0b111 << 4);   // Cleaning
@@ -45,7 +45,7 @@ void initTIM1516_PWM(TIM_TypeDef* TIMX) {
 }
 
 void delay_ms(TIM_TypeDef* TIMX, uint32_t ms) {
-  volatile uint32_t duration = ms * 80000 / (TIM15_PSC + 1);  // convert to ARR val given input clk+psc
+  volatile uint32_t duration = ms * 80000 / (DELAY_PSC + 1);  // convert to ARR val given input clk+psc
   
   TIMX->EGR |=  (1 << 0);       // reset main counter via event flag
   TIMX->ARR  = duration;

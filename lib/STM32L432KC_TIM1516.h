@@ -20,15 +20,15 @@
 
 #define __IO volatile
 
-#define TIM15_PSC  (4000)
-#define TIM16_PSC  (20)
+#define DELAY_PSC  (4000)
+#define FREQ_PSC   (20)
 
 ///////////////////////////////////////////////////////////////////////////////
 // Function prototypes
 ///////////////////////////////////////////////////////////////////////////////
 
 void initTIM1516(TIM_TypeDef* TIMX);
-// void initTIM1516_PWM(TIM1516_TypeDef* TIMX);
+void initTIM1516_PWM(TIM_TypeDef* TIMX);
 void delay_ms(TIM_TypeDef* TIMX, uint32_t ms);
 
 #endif

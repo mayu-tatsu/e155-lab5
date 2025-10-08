@@ -58,3 +58,7 @@ void enableClkGPIO(void) {
     RCC->APB2ENR |= (1 << 17);  // TIM16
     RCC->AHB2ENR |= (1 << 0);   // GPIOA
 }
+
+void enableGPIOA(void) {
+    RCC->AHB2ENR |= (1 << 0);   // GPIOA
+}
