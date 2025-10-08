@@ -1,0 +1,15 @@
+#ifndef MANUAL_POLLING_H
+#define MANUAL_POLLING_H
+
+#include <stdint.h>
+#include <stm32l432xx.h>
+#include <system_stm32l4xx.h>
+
+///////////////////////////////////////////////////////////////////////////////
+// Function prototypes
+///////////////////////////////////////////////////////////////////////////////
+
+void initSysTick(void);
+void SysTickHandler(void);
+
+#endif
