@@ -19,7 +19,7 @@
 #define A_PIN 8
 #define B_PIN 10
 
-#define MANUAL_POLLING 0
+#define MANUAL_POLLING 1
 
 int main(void) {
 
@@ -60,10 +60,12 @@ int main(void) {
 
     }
     else {
-      digitalWrite(A_PIN, 0);
-      pinMode(A_PIN, GPIO_OUTPUT);
+      
+      volatile float velocity = 0.0f;
       while (1) {
-        togglePin(A_PIN);
+        velocity = delay_ms_polling(TIM16, 500);
+        printf("velocity (manual polling): %f rev/s\n", velocity);
+        
       }
     }
 }

@@ -9,6 +9,10 @@
 // delay via while loop with nothing in it, taking timer 15.
 
 #include "STM32L432KC_TIM1516.h"
+#include "STM32L432KC_GPIO.h"
+
+#define A_PIN 8
+#define B_PIN 10
 
 void initTIM1516(TIM_TypeDef* TIMX) {
   TIMX->PSC = DELAY_PSC;      // Set prescaler
@@ -49,4 +53,46 @@ void delay_ms(TIM_TypeDef* TIMX, uint32_t ms) {
   TIMX->ARR  = duration;
   TIMX->SR  &= ~(1 << 0);       // clear update interrupt flag
   while((TIMX->SR & 1) == 0){};
+}
+
+float delay_ms_polling(TIM_TypeDef* TIMX, uint32_t ms) {
+  volatile uint32_t duration = ms * 80000 / (DELAY_PSC + 1);  // convert to ARR val given input clk+psc
+  
+  TIMX->EGR |=  (1 << 0);       // reset main counter via event flag
+  TIMX->ARR  = duration;
+  TIMX->SR  &= ~(1 << 0);       // clear update interrupt flag'
+
+
+  volatile float a_val = 0;
+  volatile float b_val = 0;
+  volatile float prev_a_val = 0;
+  volatile float prev_b_val = 0;
+
+  volatile int count = 0;
+
+  volatile float vel = 0.0;
+  volatile float dir = 0.0;     // 1.0 for CW, -1.0 for CCW
+
+  while((TIMX->SR & 1) == 0){
+  
+    prev_a_val = a_val; 
+    prev_b_val = b_val; 
+    
+    a_val = digitalRead(A_PIN);
+    b_val = digitalRead(B_PIN);
+
+    if (a_val != prev_a_val || b_val != prev_b_val) {
+      if (a_val != b_val && prev_a_val < a_val)         // rising edge for A, first -> CW
+        dir = 1.0;
+      else if (a_val != b_val && prev_b_val < b_val)    // rising edge for B, first -> CCW
+        dir = -1.0;
+      count++;
+    }
+  }
+
+  float update_freq = 1.0 / (500 / 1000.0);
+  vel = count * update_freq * (1.0 / 408.0) / 2.0;
+  count = 0;
+
+  return vel * dir;
 }

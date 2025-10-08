@@ -30,5 +30,6 @@
 void initTIM1516(TIM_TypeDef* TIMX);
 void initTIM1516_PWM(TIM_TypeDef* TIMX);
 void delay_ms(TIM_TypeDef* TIMX, uint32_t ms);
+float delay_ms_polling(TIM_TypeDef* TIMX, uint32_t ms);
 
 #endif
