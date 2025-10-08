@@ -1,10 +1,3 @@
-// main.c
-// Mayu Tatsumi; mtatsumi@g.hmc.edu
-// 2025-10-7
-
-// Configures, enables, and instantiates all timers, pins, and
-// interrupts necessary. Main loop updates velocity and direction at 1 Hz.
-
 #include <stdio.h>
 #include <stm32l432xx.h>
 
@@ -14,12 +7,14 @@
 #include "lib/STM32L432KC_TIM1516.h"
 #include "lib/print_f.h"
 
+#include "manual_polling.h"
 #include "interrupts.h"
 
 #define A_PIN 8
 #define B_PIN 10
 
 #define MANUAL_POLLING 0
+#define POLL_PERIOD 10    // 10ms period for polling
 
 int main(void) {
 
@@ -42,28 +37,32 @@ int main(void) {
     initTIM1516(TIM15);           // ref timer to measure edge times
     initTIM1516(TIM16);           // delay timer for main loop
 
-    if (!MANUAL_POLLING) {
+    volatile float velocity = 0.0f;
+    volatile float direction = -1.0f;
+    int loop_delay = 500; // ms
 
-      volatile float velocity = 0.0f;
-      volatile float direction = -1.0f;
-      int loop_delay = 500; // ms
+    while (1) {
+        velocity = update_velocity(loop_delay);
+        direction = update_direction();
 
-      while (1) {
-          velocity = update_velocity(loop_delay);
-          direction = update_direction();
+        printf("velocity: %f rev/s\n", velocity * direction);
 
-          printf("velocity: %f rev/s\n", velocity * direction);
-
-          // 1 Hz loop delay
-          delay_ms(TIM16, loop_delay);
-      }
-
+        // 1 Hz loop delay
+        delay_ms(TIM16, loop_delay);
     }
-    else {
-      digitalWrite(A_PIN, 0);
-      pinMode(A_PIN, GPIO_OUTPUT);
-      while (1) {
-        togglePin(A_PIN);
+
+    
+    volatile float polling_velo = 0.0f;
+
+    if (MANUAL_POLLING) {
+      enableGPIOA();
+      pinMode(A_PIN, GPIO_INPUT);
+      pinMode(B_PIN, GPIO_INPUT);
+ 
+      initSysTick();
+      while(1) {
+        polling_velo = update_velocity(POLL_PERIOD);
       }
+
     }
 }

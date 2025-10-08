@@ -1,12 +1,3 @@
-// interrupts.c
-// Mayu Tatsumi; mtatsumi@g.hmc.edu
-// 2025-10-7
-
-// Implements functions for initializing and handling external
-// interrupts. They trigger on falling or rising edges and
-// record timestamps accordingly. Also, logic for updating
-// velocity and direction were implemented using those timestamps.
-
 #ifndef INTERRUPT_H
 #define INTERRUPT_H
 

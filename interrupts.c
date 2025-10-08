@@ -49,6 +49,8 @@ void EXTI9_5_IRQHandler(void) {
 
         // toggle
         a_state = ~a_state;
+
+        // printf("interrupt triggered\n");
     }
 }
 
@@ -67,6 +69,9 @@ void EXTI15_10_IRQHandler(void) {
         // toggle + increment
         b_state = ~b_state;
         edge_count++;
+
+        // if (!(edge_count % 10))
+        //   printf("edge count: %d at interrupt\n", edge_count);
     }
 }
 
