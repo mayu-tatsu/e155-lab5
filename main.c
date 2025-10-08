@@ -19,7 +19,7 @@
 #define A_PIN 8
 #define B_PIN 10
 
-#define MANUAL_POLLING 1
+#define MANUAL_POLLING 0
 
 int main(void) {
 
@@ -35,7 +35,6 @@ int main(void) {
     enablePullUp(A_PIN);
     enablePullUp(B_PIN);
 
-    initTIM1516(TIM15);           // ref timer to measure edge times
     initTIM1516(TIM16);           // delay timer for main loop
 
     if (!MANUAL_POLLING) {
@@ -45,17 +44,14 @@ int main(void) {
       initInterrupt(B_PIN);
 
       volatile float velocity = 0.0f;
-      volatile float direction = -1.0f;
-      int loop_delay = 1000; // ms
 
       while (1) {
-          velocity = update_velocity(loop_delay);
-          direction = update_direction();
+          velocity = update_velocity();
 
-          printf("velocity: %f rev/s\n", velocity * direction);
+          printf("velocity: %f rev/s\n", velocity);
 
           // 1 Hz loop delay
-          delay_ms(TIM16, loop_delay);
+          delay_ms(TIM16, 1000);
       }
 
     } else {
