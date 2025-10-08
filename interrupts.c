@@ -23,6 +23,7 @@ volatile int b_val = 0;
 // counts edges since last reset
 volatile int edge_count = 0;
 
+// Initializes an interrupt looking at a specific pin.
 void initInterrupt(int pin) {
     SYSCFG->EXTICR[pin / 4] &= ~(0xF << ((pin % 4) * 4));       // clear
     SYSCFG->EXTICR[pin / 4] |=  (0b000 << ((pin % 4) * 4));     // set
@@ -40,6 +41,11 @@ void initInterrupt(int pin) {
     }
 }
 
+
+// Issuer: Any edge in pins 5-9, specifically designed to execute code
+// when pin 8's edges change.
+// Side effects: Incrementing or decrementing edge_count depending on
+// the direction in which the motor rotates.
 void EXTI9_5_IRQHandler(void) {
 
     // checks if exti line 8 triggered (out of 5-8)
@@ -57,6 +63,10 @@ void EXTI9_5_IRQHandler(void) {
     }
 }
 
+// Issuer: Any edge in pins 10-15, specifically designed to execute code
+// when pin 10's edges change.
+// Increments or decrements edge_count depending on the direction in which
+// the motor rotates, which is detected by reading each value.
 void EXTI15_10_IRQHandler(void) {
 
     // checks if exti line 10 triggered (out of 10-15)
