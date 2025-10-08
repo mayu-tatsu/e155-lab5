@@ -19,7 +19,7 @@
 #define A_PIN 8
 #define B_PIN 10
 
-#define MANUAL_POLLING 1
+#define MANUAL_POLLING 0
 
 int main(void) {
 

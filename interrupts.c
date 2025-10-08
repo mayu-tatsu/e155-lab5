@@ -59,6 +59,7 @@ void EXTI9_5_IRQHandler(void) {
 
         // toggle
         a_state = ~a_state;
+        edge_count++;
     }
 }
 
