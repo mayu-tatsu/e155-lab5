@@ -32,9 +32,6 @@ int main(void) {
     pinMode(A_PIN, GPIO_INPUT);
     pinMode(B_PIN, GPIO_INPUT);
 
-    pinMode(6, GPIO_OUTPUT);
-    digitalWrite(6, 0);
-
     enablePullUp(A_PIN);
     enablePullUp(B_PIN);
 
@@ -58,6 +55,9 @@ int main(void) {
       }
 
     } else {
+
+      pinMode(6, GPIO_OUTPUT);
+      digitalWrite(6, 0);
       
       volatile float velo2 = 0.0f;
       while (1) {
