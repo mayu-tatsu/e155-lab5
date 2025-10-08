@@ -1,3 +1,13 @@
+// interrupts.c
+// Mayu Tatsumi; mtatsumi@g.hmc.edu
+// 2025-10-8
+
+// Implements functions for initializing and handling external
+// interrupts. They are triggered by falling or rising edges
+// from the encoder signals, and record timestamps accordingly.
+// Also, implemented logic to update velocity and direction
+// based on those timestamps.
+
 #include "interrupts.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,8 +59,6 @@ void EXTI9_5_IRQHandler(void) {
 
         // toggle
         a_state = ~a_state;
-
-        // printf("interrupt triggered\n");
     }
 }
 
@@ -69,9 +77,6 @@ void EXTI15_10_IRQHandler(void) {
         // toggle + increment
         b_state = ~b_state;
         edge_count++;
-
-        // if (!(edge_count % 10))
-        //   printf("edge count: %d at interrupt\n", edge_count);
     }
 }
 

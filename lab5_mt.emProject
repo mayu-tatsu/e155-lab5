@@ -70,8 +70,6 @@
       <file file_name="interrupts.c" />
       <file file_name="interrupts.h" />
       <file file_name="main.c" />
-      <file file_name="manual_polling.c" />
-      <file file_name="manual_polling.h" />
       <file file_name="lib/print_f.c" />
       <file file_name="lib/print_f.h" />
       <file file_name="lib/STM32L432KC_EXTI.h" />
