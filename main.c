@@ -32,6 +32,9 @@ int main(void) {
     pinMode(A_PIN, GPIO_INPUT);
     pinMode(B_PIN, GPIO_INPUT);
 
+    pinMode(6, GPIO_OUTPUT);
+    digitalWrite(6, 0);
+
     enablePullUp(A_PIN);
     enablePullUp(B_PIN);
 
@@ -56,11 +59,11 @@ int main(void) {
 
     } else {
       
-      volatile float velocity = 0.0f;
+      volatile float velo2 = 0.0f;
       while (1) {
-        velocity = delay_ms_polling(TIM16, 500);
-        printf("velocity (manual polling): %f rev/s\n", velocity);
-        
+          velo2 = update_velocity();
+          printf("velocity (polling): %f rev/s\n", velo2);
+          togglePin(6);
       }
     }
 }
