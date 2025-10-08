@@ -19,7 +19,7 @@
 #define A_PIN 8
 #define B_PIN 10
 
-#define MANUAL_POLLING 1
+#define MANUAL_POLLING 0
 
 int main(void) {
 
@@ -35,14 +35,14 @@ int main(void) {
     enablePullUp(A_PIN);
     enablePullUp(B_PIN);
 
-    __enable_irq();
-    initInterrupt(A_PIN);
-    initInterrupt(B_PIN);
-
     initTIM1516(TIM15);           // ref timer to measure edge times
     initTIM1516(TIM16);           // delay timer for main loop
 
     if (!MANUAL_POLLING) {
+
+      __enable_irq();
+      initInterrupt(A_PIN);
+      initInterrupt(B_PIN);
 
       volatile float velocity = 0.0f;
       volatile float direction = -1.0f;
