@@ -1,0 +1,17 @@
+// STM32L432KC_EXTI.h
+
+#ifndef STM32L4_EXTI_H
+#define STM32L4_EXTI_H
+
+#include <stdint.h>
+#include <stm32l432xx.h>
+
+///////////////////////////////////////////////////////////////////////////////
+// Definitions
+///////////////////////////////////////////////////////////////////////////////
+
+// Base address
+#define EXTI_BASE  (0x40010400UL)
+#define EXTI       ((EXTI *) EXTI_BASE)
+
+#endif
