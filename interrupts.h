@@ -1,3 +1,11 @@
+// interrupts.h
+// Mayu Tatsumi; mtatsumi@g.hmc.edu
+// 2025-10-7
+
+// Header file for interrupts.c. Defines function prototypes
+// for initializing and handling external interrupts. Also
+// logic for updating velocity and direction based on encoder signals.
+
 #ifndef STM32L4_INTERRUPT_H
 #define STM32L4_INTERRUPT_H
 

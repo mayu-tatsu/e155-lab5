@@ -1,3 +1,13 @@
+// interrupts.c
+// Mayu Tatsumi; mtatsumi@g.hmc.edu
+// 2025-10-7
+
+// Implements functions for initializing and handling external
+// interrupts. Interrupts determine falling or rising edges, and 
+// record timestamps accordingly. Also, logic for updating
+// velocity and direction based on encoder signals based on
+// data collected from interrupts and specs from datasheet.
+
 #include "interrupts.h"
 #include <stdio.h>
 #include <stdlib.h>

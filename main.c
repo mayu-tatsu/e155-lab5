@@ -1,3 +1,10 @@
+// main.c
+// Mayu Tatsumi; mtatsumi@g.hmc.edu
+// 2025-10-7
+
+// Configures, enables, and instantiates all timers, pins, and
+// interrupts necessary. Main loop updates velocity and direction at 1 Hz.
+
 #include <stdio.h>
 #include <stm32l432xx.h>
 
