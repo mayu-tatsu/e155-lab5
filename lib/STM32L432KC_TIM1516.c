@@ -91,7 +91,7 @@ float delay_ms_polling(TIM_TypeDef* TIMX, uint32_t ms) {
   }
 
   float update_freq = 1.0 / (500 / 1000.0);
-  vel = count * update_freq * (1.0 / 408.0) / 2.0;
+  vel = count * update_freq * (1.0 / 408.0) / 4.0;
   count = 0;
 
   return vel * dir;

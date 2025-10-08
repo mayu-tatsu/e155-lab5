@@ -86,7 +86,7 @@ float update_velocity(int loop_delay) {
 
     // 1/408: converts cycles/s into rev/s, using 408 pulses per rotation
     // div by 2: each rev has 2 rising edges
-    float vel = edge_count * update_freq * (1.0 / 408.0) / 2.0;
+    float vel = edge_count * update_freq * (1.0 / 408.0) / 4.0;
     edge_count = 0;      // reset
 
     return vel;

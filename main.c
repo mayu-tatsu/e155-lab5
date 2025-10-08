@@ -19,7 +19,7 @@
 #define A_PIN 8
 #define B_PIN 10
 
-#define MANUAL_POLLING 0
+#define MANUAL_POLLING 1
 
 int main(void) {
 
@@ -46,7 +46,7 @@ int main(void) {
 
       volatile float velocity = 0.0f;
       volatile float direction = -1.0f;
-      int loop_delay = 500; // ms
+      int loop_delay = 1000; // ms
 
       while (1) {
           velocity = update_velocity(loop_delay);
@@ -58,8 +58,7 @@ int main(void) {
           delay_ms(TIM16, loop_delay);
       }
 
-    }
-    else {
+    } else {
       
       volatile float velocity = 0.0f;
       while (1) {
